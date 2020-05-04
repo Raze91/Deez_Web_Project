@@ -6,6 +6,8 @@
     <title>Page de recherche</title>
     <link rel="stylesheet" href="styles/style.css">
     <script defer src="https://unpkg.com/jquery@3.4.1/dist/jquery.js"></script>
+    <script defer src="scripts/index.js"></script>
+
 </head>
 <body>
     <header>
@@ -29,21 +31,21 @@
             <form action="">
                 <div>
                     <label for="">Titre: </label>
-                    <input type="text" placeholder="Eminem, Armin Van Buuren, Rihanna, ..." style="width: 250px;">
+                    <input type="text" id="title" placeholder="Eminem, Armin Van Buuren, Rihanna, ..." style="width: 250px;">
                 </div>
 
                 <div>
                     <label for="">Trier par: </label>
-                    <select name="Trie">
+                    <select name="Trie" id="sortBy">
                         <option value="Album">Album</option>
-                        <option value="Artiste">Artiste</option>
-                        <option value="Musique">Musique</option>
-                        <option value="Populaires">Les plus populaires</option>
-                        <option value="Note">Les mieux notés</option>
+                        <option value="Artist">Artiste</option>
+                        <option value="Music">Musique</option>
+                        <option value="mostPopulars">Les plus populaires</option>
+                        <option value="MostRated">Les mieux notés</option>
                     </select>
                 </div>
 
-                <input type="submit" value="Go"/>
+                <input type="submit" id="submit" value="Go"/>
             </form>
             <hr>
         </section>
