@@ -7,6 +7,7 @@ header {
     background-color: steelblue;
 }
 
+/*** NAVBAR ***/
 nav {
     display: flex;
     height: 30px;
@@ -34,21 +35,37 @@ nav a:hover {
     opacity: 1;
 }
 
-section {
+/*** PAGE D'ACCUEIL ***/
+
+.welcome {
     width: 80%;
     margin: auto;
     background-color: #e8ecef;
 }
 
-section h1, section p {
+.welcome h1, .welcome p {
     padding-left: 20px;
 }
 
-section h1 {
+.welcome h1 {
     padding-top: 20px;
 }
 
-section p {
+.welcome p {
     padding-bottom: 20px
 }
 
+/*** PAGE DE RECHERCHE ***/
+
+.search , .searchForm {
+    width: 80%;
+    margin: auto;
+}
+
+.searchForm  form {
+    display: flex;
+}
+
+.searchForm div {
+    margin-right: 50px;
+}
