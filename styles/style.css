@@ -10,7 +10,7 @@ header {
 /*** NAVBAR ***/
 nav {
     display: flex;
-    height: 30px;
+    height: 40px;
     align-items: center;
     width: 80%;
     margin: auto;
@@ -25,6 +25,7 @@ nav a {
     color: white;
     opacity: 0.5;
     margin-right: 50px;
+    font-size: 18px;
 }
 
 nav a:hover {
@@ -67,5 +68,34 @@ nav a:hover {
 }
 
 .searchForm div {
-    margin-right: 50px;
+    margin-right: 60px;
+}
+
+.searchForm div label {
+    margin-right: 30px;
+}
+
+#tracks {
+    width: 80%;
+    margin: auto;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+}
+.track {
+    width: 300px;
+    margin-bottom: 20px;
+    margin-right: 20px;
+}
+
+.track div {
+    display: flex;
+}
+
+.track img {
+    height: 120px;
+}
+.track-data {
+    margin-left: 20px;
+    display: block !important;
 }
