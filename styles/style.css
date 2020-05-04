@@ -1,0 +1,54 @@
+body {
+    margin: 0;
+    padding: 0;
+}
+
+header {
+    background-color: steelblue;
+}
+
+nav {
+    display: flex;
+    height: 30px;
+    align-items: center;
+    width: 80%;
+    margin: auto;
+}
+
+nav div a:first-of-type {
+    margin-left: 100px;
+}
+
+nav a {
+    text-decoration: none;
+    color: white;
+    opacity: 0.5;
+    margin-right: 50px;
+}
+
+nav a:hover {
+    opacity: 1;
+}
+
+.active {
+    opacity: 1;
+}
+
+section {
+    width: 80%;
+    margin: auto;
+    background-color: #e8ecef;
+}
+
+section h1, section p {
+    padding-left: 20px;
+}
+
+section h1 {
+    padding-top: 20px;
+}
+
+section p {
+    padding-bottom: 20px
+}
+
