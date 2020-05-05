@@ -12,8 +12,7 @@
         ///////////////////////////////////////////
 
     if (favStorage.getItem('favoris')) {
-        if(favStorage.favoris.length > 1) {
-
+        if(JSON.parse(favStorage.favoris).length > 0) {
         
         favTracks = JSON.parse(favStorage.getItem('favoris'));
         console.log(favTracks);
