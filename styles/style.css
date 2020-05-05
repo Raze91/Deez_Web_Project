@@ -86,25 +86,34 @@ nav a:hover {
     flex-wrap: wrap;
     justify-content: space-between;
 }
-.track {
+
+#randomFav {
+    width: 80%;
+    margin: auto;
+    display: flex;
+    justify-content: center;
+}
+
+.track{
     width: 380px;
     margin-bottom: 30px;
     padding-right: 20px;
 }
 
-.track h1 {
+
+.track h1 , .randomTrack h1{
     margin: 0;
 }
 
-.track div {
+.track div , .randomTrack div{
     display: flex;
     margin-bottom: 10px;
 }
 
-.track img {
+.track img , .randomTrack img{
     height: 120px;
 }
-.track-data {
+.track-data{
     margin-left: 20px;
     display: block !important;
 }
