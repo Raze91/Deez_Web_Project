@@ -117,3 +117,27 @@ nav a:hover {
     margin-left: 20px;
     display: block !important;
 }
+
+.unchecked {
+    background-color: steelblue;
+    border: none;
+    border-radius: 40px;
+    color: white;
+    height: 25px;
+}
+
+.unchecked:hover {
+    cursor: pointer;
+}
+
+.checked {
+    background-color: crimson;
+    border: none;
+    border-radius: 40px;
+    color: white;
+    height: 25px;
+}
+
+.checked:hover {
+    cursor: pointer;
+}
