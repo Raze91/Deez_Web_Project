@@ -63,6 +63,10 @@ nav a:hover {
     margin: auto;
 }
 
+.searchForm {
+    margin-bottom: 30px;
+}
+
 .searchForm  form {
     display: flex;
 }
@@ -75,7 +79,7 @@ nav a:hover {
     margin-right: 30px;
 }
 
-#tracks {
+#tracks ,#favTracks{
     width: 80%;
     margin: auto;
     display: flex;
@@ -83,13 +87,18 @@ nav a:hover {
     justify-content: space-between;
 }
 .track {
-    width: 300px;
-    margin-bottom: 20px;
-    margin-right: 20px;
+    width: 380px;
+    margin-bottom: 30px;
+    padding-right: 20px;
+}
+
+.track h1 {
+    margin: 0;
 }
 
 .track div {
     display: flex;
+    margin-bottom: 10px;
 }
 
 .track img {
