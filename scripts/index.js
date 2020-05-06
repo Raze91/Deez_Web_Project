@@ -7,18 +7,21 @@
 
     $('#submit').on('click', onSubmit);
 
+
+    if (favStorage.getItem('favoris')) {
+
+
         ///////////////////////////////////////////
         ///////////// PAGE FAVORIS ////////////////
         ///////////////////////////////////////////
 
-    if (favStorage.getItem('favoris')) {
-        if(JSON.parse(favStorage.favoris).length > 0) {
-        
-        favTracks = JSON.parse(favStorage.getItem('favoris'));
-        console.log(favTracks);
-        $.each(favTracks, function (index, fav) {
-            $('#favTracks').append(
-                `<div class='track'>
+        if (JSON.parse(favStorage.favoris).length > 0) {
+
+            favTracks = JSON.parse(favStorage.getItem('favoris'));
+            console.log(favTracks);
+            $.each(favTracks, function (index, fav) {
+                $('#favTracks').append(
+                    `<div class='track'>
                             <div>
                                 <img src='${fav.album.cover}' alt="">
                                 <div class='track-data'>
@@ -29,23 +32,23 @@
                             </div>
                             <audio controls src="${fav.preview}"></audio>
                         </div>`
-            )
+                )
 
-            $(`#${fav.id}`).on('click', function (e) {
-                e.preventDefault();
-                delFav(favTracks, index);
-                reload();
+                $(`#${fav.id}`).on('click', function (e) {
+                    e.preventDefault();
+                    delFav(favTracks, index);
+                    reload();
+                })
+
             })
-
-        })
-    } else {
-        $('#favTracks').append(
-            `<h2>Vous n'avez pas encore de favoris ...</h2>`
-        )
-    }
-            ///////////////////////////////////////
-            //////////// PAGE ACCUEIL /////////////
-            ///////////////////////////////////////
+        } else {
+            $('#favTracks').append(
+                `<h2>Vous n'avez pas encore de favoris ...</h2>`
+            )
+        }
+        ///////////////////////////////////////
+        //////////// PAGE ACCUEIL /////////////
+        ///////////////////////////////////////
 
         if (favTracks.length > 0) {
             let rdmTrack = favTracks[getRandomNum(favTracks.length)]
@@ -56,14 +59,14 @@
                                     <div class='track-data'>
                                     <h1>${rdmTrack.title_short}</h1>
                                     <p>${rdmTrack.artist.name} / ${rdmTrack.album.title}</p>
-                                    <button id='${rdmTrack.id}' class='unchecked'>Changer aléatoirement de musique</button>
                                     </div>
+                                    </div>
+                                    <audio controls src="${rdmTrack.preview}"></audio>
                                 </div>
-                                <audio controls src="${rdmTrack.preview}"></audio>
-                            </div>`
+                                <button id='${rdmTrack.id}' class='unchecked'>Changer aléatoirement de musique</button>`
             )
 
-            $(`#${rdmTrack.id}`).on('click',function (e) {
+            $(`#${rdmTrack.id}`).on('click', function (e) {
                 reload();
             })
         } else {
@@ -73,16 +76,16 @@
         }
 
     } else {
-        $('#favTracks').html('<h3>Aucun favoris ...</h3>')
+        $('#favTracks').html(`<h2>Vous n'avez pas encore de favoris ...</h2>`)
     }
 
     function getRandomNum(max) {
         return Math.floor(Math.random() * Math.floor(max));
     }
 
-            ///////////////////////////////////
-            ////////// PAGE RECHERCHE /////////
-            ///////////////////////////////////
+    ///////////////////////////////////
+    ////////// PAGE RECHERCHE /////////
+    ///////////////////////////////////
 
     function onSubmit(event) {
         event.preventDefault();
@@ -98,10 +101,7 @@
             const results = result.data;
 
             $.each(results, function (index, result) {
-                if (changeBtn(result, favTracks) === true) {
-                    console.log(true)
-                    // $('button').remove();
-                }
+                
                 $('#tracks').append(
                     `<div class='track'>
                     <div>
@@ -118,8 +118,23 @@
 
                 $(`#${result.id}`).on('click', function (e) {
                     e.preventDefault();
-                    addFav(result);
-                    changeBtn(result, favTracks);
+
+                    if ($(`#${result.id}`).attr('class') === 'unchecked') {
+                        addFav(result);
+                        // changeBtn(result, favTracks);
+                        $(`#${result.id}`).empty();
+                        $(`#${result.id}`).append('Supprimer des favoris');
+                        $(`#${result.id}`).removeClass('unchecked').addClass('checked');
+                        console.log($(`#${result.id}`).attr('class'))
+                        console.log(favTracks)
+                    } else if ($(`#${result.id}`).attr('class') === 'checked') {
+                        // changeBtn(result,favTracks);
+                        $(`#${result.id}`).empty();
+                        $(`#${result.id}`).append('Ajouter aux favoris');
+                        $(`#${result.id}`).removeClass('checked').addClass('unchecked');
+                        delFav(favTracks, result);
+                        console.log(favTracks);
+                    }
                 });
 
             })
@@ -135,40 +150,44 @@
         if ($(`#${result.id}`).attr('class') === 'unchecked') {
             favTracks.push(result);
             favStorage.setItem('favoris', JSON.stringify(favTracks));
+            console.log('ajouté')
         } else {
             console.log('déja dans les favoris');
         }
     }
 
-    function delFav(favTracks, index) {
-        console.log(favTracks);
+    function delFav(favTracks, result) {
+
+        let index;
+
+        for (let i = 0; i < favTracks; i++) {
+            if (favTracks[i].id === result.id) {
+                index = i
+            }
+        }
         favTracks.splice(index, 1);
-        console.log(index)
         favStorage.setItem('favoris', JSON.stringify(favTracks));
+        console.log('supprimé')
     }
 
     function reload() {
         document.location.reload(true);
     }
 
-    function changeBtn(result, favTracks) {
-        if (favStorage.getItem('favoris')) {
+    // function changeBtn(result, favTracks) {
+    //     if (favStorage.getItem('favoris')) {
 
-            for (let i = 0; i < favTracks.length; i++) {
+    //         for (let i = 0; i < favTracks.length; i++) {
+    //             console.log('zbzub')
+    //             if (favTracks[i].id === result.id) {
+    //                 if ($(`#${result.id}`).attr('class') === 'unchecked') {
 
-                if (favTracks[i].id === result.id) {
-                    if ($(`#${result.id}`).attr('class') === 'unchecked') {
-                        $(`#${result.id}`).empty();
-                        $(`#${result.id}`).append('Supprimer des favoris');
-                        $(`#${result.id}`).removeClass('unchecked').addClass('checked');
-                    } else if ($(`#${result.id}`).attr('class') === 'checked') {
-                        $(`#${result.id}`).empty();
-                        $(`#${result.id}`).append('Ajouter aux favoris');
-                        $(`#${result.id}`).removeClass('checked').addClass('unchecked');
-                    }
-                }
-            }
-        }
-    }
+    //                 } else if ($(`#${result.id}`).attr('class') === 'checked') {
+
+    //                 }
+    //             }
+    //         }
+    //     }
+    // }
 
 })();

@@ -91,9 +91,22 @@ nav a:hover {
     width: 80%;
     margin: auto;
     display: flex;
-    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
 
+#randomFav button {
+    margin-top: 20px;
+}
+
+#randomFav audio {
+    width: inherit;
+}
+
+.randomTrack {
+    width: 500px;
+    margin-top: 30px;
+}
 .track{
     width: 380px;
     margin-bottom: 30px;
