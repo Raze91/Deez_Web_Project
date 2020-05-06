@@ -10,7 +10,6 @@
 
     if (favStorage.getItem('favoris')) {
 
-
         ///////////////////////////////////////////
         ///////////// PAGE FAVORIS ////////////////
         ///////////////////////////////////////////
@@ -25,27 +24,29 @@
                             <div>
                                 <img src='${fav.album.cover}' alt="">
                                 <div class='track-data'>
-                                <h1>${fav.title_short}</h1>
+                                <h3>${fav.title_short}</h3>
                                 <p>${fav.artist.name}</p>
                                 <button id='${fav.id}' class='checked'>Supprimer des favoris</button>
                                 </div>
                             </div>
                             <audio controls src="${fav.preview}"></audio>
-                        </div>`
+                    </div>`
                 )
 
                 $(`#${fav.id}`).on('click', function (e) {
                     e.preventDefault();
-                    delFav(favTracks, index);
+                    favTracks.splice(index, 1);
+                    favStorage.setItem('favoris', JSON.stringify(favTracks));
                     reload();
                 })
 
             })
         } else {
             $('#favTracks').append(
-                `<h2>Vous n'avez pas encore de favoris ...</h2>`
+                `<h3>Vous n'avez pas encore de favoris ...</h3>`
             )
         }
+
         ///////////////////////////////////////
         //////////// PAGE ACCUEIL /////////////
         ///////////////////////////////////////
@@ -57,7 +58,7 @@
                                 <div>
                                     <img src='${rdmTrack.album.cover}' alt="">
                                     <div class='track-data'>
-                                    <h1>${rdmTrack.title_short}</h1>
+                                    <h3>${rdmTrack.title_short}</h3>
                                     <p>${rdmTrack.artist.name} / ${rdmTrack.album.title}</p>
                                     </div>
                                     </div>
@@ -71,12 +72,12 @@
             })
         } else {
             $('#randomFav').append(
-                `<h2>Vous n'avez pas encore de favoris ...</h2>`
+                `<h3>Vous n'avez pas encore de favoris ...</h3>`
             )
         }
 
     } else {
-        $('#favTracks').html(`<h2>Vous n'avez pas encore de favoris ...</h2>`)
+        $('#favTracks').html(`<h3>Vous n'avez pas encore de favoris ...</h3>`)
     }
 
     function getRandomNum(max) {
@@ -84,7 +85,7 @@
     }
 
     ///////////////////////////////////
-    ////////// PAGE RECHERCHE /////////
+    ///////// PAGE RECHERCHE //////////
     ///////////////////////////////////
 
     function onSubmit(event) {
@@ -101,13 +102,13 @@
             const results = result.data;
 
             $.each(results, function (index, result) {
-                
+
                 $('#tracks').append(
                     `<div class='track'>
                     <div>
                     <img src='${result.album.cover}' alt="">
                     <div class='track-data'>
-                    <h1>${result.title_short}</h1>
+                    <h3>${result.title_short}</h3>
                     <p>${result.artist.name} / ${result.album.title}</p>
                     <button id='${result.id}' class='unchecked'>Ajouter aux favoris</button>
                     </div>
@@ -116,22 +117,22 @@
                     </div>`
                 );
 
+                for (let i = 0; i < favTracks.length; i++) {
+                    if (result.id === favTracks[i].id) {
+                        setChecked(result);
+                    }
+                }
+
                 $(`#${result.id}`).on('click', function (e) {
                     e.preventDefault();
 
                     if ($(`#${result.id}`).attr('class') === 'unchecked') {
                         addFav(result);
-                        // changeBtn(result, favTracks);
-                        $(`#${result.id}`).empty();
-                        $(`#${result.id}`).append('Supprimer des favoris');
-                        $(`#${result.id}`).removeClass('unchecked').addClass('checked');
+                        setChecked(result);
                         console.log($(`#${result.id}`).attr('class'))
                         console.log(favTracks)
                     } else if ($(`#${result.id}`).attr('class') === 'checked') {
-                        // changeBtn(result,favTracks);
-                        $(`#${result.id}`).empty();
-                        $(`#${result.id}`).append('Ajouter aux favoris');
-                        $(`#${result.id}`).removeClass('checked').addClass('unchecked');
+                        setUnchecked(result);
                         delFav(favTracks, result);
                         console.log(favTracks);
                     }
@@ -146,13 +147,9 @@
     }
 
     function addFav(result) {
-        // console.log(result);
         if ($(`#${result.id}`).attr('class') === 'unchecked') {
             favTracks.push(result);
             favStorage.setItem('favoris', JSON.stringify(favTracks));
-            console.log('ajouté')
-        } else {
-            console.log('déja dans les favoris');
         }
     }
 
@@ -167,27 +164,22 @@
         }
         favTracks.splice(index, 1);
         favStorage.setItem('favoris', JSON.stringify(favTracks));
-        console.log('supprimé')
     }
 
     function reload() {
         document.location.reload(true);
     }
 
-    // function changeBtn(result, favTracks) {
-    //     if (favStorage.getItem('favoris')) {
+    function setChecked(result) {
+        $(`#${result.id}`).empty();
+        $(`#${result.id}`).append('Supprimer des favoris');
+        $(`#${result.id}`).removeClass('unchecked').addClass('checked');
+    }
 
-    //         for (let i = 0; i < favTracks.length; i++) {
-    //             console.log('zbzub')
-    //             if (favTracks[i].id === result.id) {
-    //                 if ($(`#${result.id}`).attr('class') === 'unchecked') {
-
-    //                 } else if ($(`#${result.id}`).attr('class') === 'checked') {
-
-    //                 }
-    //             }
-    //         }
-    //     }
-    // }
+    function setUnchecked(result) {
+        $(`#${result.id}`).empty();
+        $(`#${result.id}`).append('Ajouter aux favoris');
+        $(`#${result.id}`).removeClass('checked').addClass('unchecked');
+    }
 
 })();

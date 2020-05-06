@@ -20,12 +20,14 @@ nav div a:first-of-type {
     margin-left: 100px;
 }
 
+nav p , nav a{
+    color: white;
+    font-size: 18px;
+}
 nav a {
     text-decoration: none;
-    color: white;
     opacity: 0.5;
     margin-right: 50px;
-    font-size: 18px;
 }
 
 nav a:hover {
