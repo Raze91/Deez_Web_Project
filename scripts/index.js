@@ -2,12 +2,25 @@
 (function () {
     'use strict';
 
+    
     const favStorage = localStorage;
     let favTracks = [];
-
-    $('#submit').on('click', onSubmit);
-
-
+    let finalUrl;
+    
+    $('#submit').on('click', function(e) {
+        e.preventDefault();
+        let title = $('#title').val();
+        let sort = $('#sortBy').val();
+        let url = `https://api.deezer.com/search?q=${title}&output=jsonp&order=${sort}`
+        
+        onSubmit(url);
+    });
+    
+    if (sessionStorage.getItem('page')) {
+        finalUrl = sessionStorage.getItem('page');
+        onSubmit(finalUrl);
+    }
+    
     if (favStorage.getItem('favoris')) {
 
         ///////////////////////////////////////////
@@ -17,7 +30,6 @@
         if (JSON.parse(favStorage.favoris).length > 0) {
 
             favTracks = JSON.parse(favStorage.getItem('favoris'));
-            console.log(favTracks);
             $.each(favTracks, function (index, fav) {
                 $('#favTracks').append(
                     `<div class='track'>
@@ -43,7 +55,7 @@
             })
         } else {
             $('#favTracks').append(
-                `<h3>Vous n'avez pas encore de favoris ...</h3>`
+                `<h3>Vous n'avez pas encore de favoris ... Trouvez en <a href="search.html">ici</a> !</h3>`
             )
         }
 
@@ -72,12 +84,12 @@
             })
         } else {
             $('#randomFav').append(
-                `<h3>Vous n'avez pas encore de favoris ...</h3>`
+                `<h3>Vous n'avez pas encore de favoris ... Trouvez en <a href="search.html">ici</a> !</h3>`
             )
         }
 
     } else {
-        $('#favTracks').html(`<h3>Vous n'avez pas encore de favoris ...</h3>`)
+        $('#favTracks').html(`<h3>Vous n'avez pas encore de favoris ... Trouvez en <a href="search.html">ici</a> !</h3>`)
     }
 
     function getRandomNum(max) {
@@ -88,14 +100,11 @@
     ///////// PAGE RECHERCHE //////////
     ///////////////////////////////////
 
-    function onSubmit(event) {
-        event.preventDefault();
+    function onSubmit(url) {
         $('#tracks').empty();
 
-        let titre = $('#title').val();
-        let sort = $('#sortBy').val();
         $.ajax({
-            url: `https://api.deezer.com/search?q=${titre}&output=jsonp&order=${sort}`,
+            url: url,
             dataType: "jsonp",
         }).then((result) => {
 
@@ -108,7 +117,7 @@
                     <div>
                     <img src='${result.album.cover}' alt="">
                     <div class='track-data'>
-                    <h3>${result.title_short}</h3>
+                    <h3>${result.title}</h3>
                     <p>${result.artist.name} / ${result.album.title}</p>
                     <button id='${result.id}' class='unchecked'>Ajouter aux favoris</button>
                     </div>
@@ -116,6 +125,9 @@
                     <audio controls src="${result.preview}"></audio>
                     </div>`
                 );
+
+                finalUrl = url;
+                sessionStorage.setItem('page', finalUrl);
 
                 for (let i = 0; i < favTracks.length; i++) {
                     if (result.id === favTracks[i].id) {
@@ -129,12 +141,9 @@
                     if ($(`#${result.id}`).attr('class') === 'unchecked') {
                         addFav(result);
                         setChecked(result);
-                        console.log($(`#${result.id}`).attr('class'))
-                        console.log(favTracks)
                     } else if ($(`#${result.id}`).attr('class') === 'checked') {
                         setUnchecked(result);
                         delFav(favTracks, result);
-                        console.log(favTracks);
                     }
                 });
 

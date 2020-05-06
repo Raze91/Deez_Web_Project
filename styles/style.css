@@ -106,13 +106,13 @@ nav a:hover {
 }
 
 .randomTrack {
-    width: 500px;
+    width: 300px;
     margin-top: 30px;
 }
 .track{
     width: 380px;
     margin-bottom: 30px;
-    padding-right: 20px;
+    text-align: center;
 }
 
 
@@ -121,16 +121,25 @@ nav a:hover {
 }
 
 .track div , .randomTrack div{
-    display: flex;
+    text-align: center;
     margin-bottom: 10px;
 }
 
 .track img , .randomTrack img{
     height: 120px;
 }
-.track-data{
-    margin-left: 20px;
-    display: block !important;
+.track-data h3 {
+    margin: 0;
+    margin-top: 5px;
+}
+
+.track-data p {
+    margin-top: 5px;
+    margin-bottom: 0;
+}
+
+.track-data button {
+    margin-top: 5px;
 }
 
 .unchecked {
