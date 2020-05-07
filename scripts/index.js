@@ -36,17 +36,18 @@ if (favStorage.getItem('favoris')) {
                                 <div class='track-data'>
                                 <h3>${fav.title_short}</h3>
                                 <p>${fav.artist.name}</p>
-                                <button id='${fav.id}' class='checked'>Supprimer des favoris</button>
+                                <button id='test-${fav.id}' class='checked'>Supprimer des favoris</button>
                                 </div>
                             </div>
                             <audio controls src="${fav.preview}"></audio>
                     </div>`
             )
 
-            $(`#${fav.id}`).on('click', function (e) {
+            $(`#test-${fav.id}`).on('click', function (e) {
                 e.preventDefault();
                 favTracks.splice(index, 1);
                 favStorage.setItem('favoris', JSON.stringify(favTracks));
+
                 reload();
             })
 
@@ -112,7 +113,6 @@ function onSubmit(url) {
         $('#next').one('click', function (e) {
             e.preventDefault();
 
-            console.log(nextUrl)
             onNext(nextUrl);
         });
 
@@ -230,6 +230,7 @@ function onNext(nextUrl) {
 }
 
 function addFav(result) {
+    
     if ($(`#${result.id}`).attr('class') === 'unchecked') {
         favTracks.push(result);
         favStorage.setItem('favoris', JSON.stringify(favTracks));
@@ -240,7 +241,7 @@ function delFav(favTracks, result) {
 
     let index;
 
-    for (let i = 0; i < favTracks; i++) {
+    for (let i = 0; i < favTracks.length; i++) {
         if (favTracks[i].id === result.id) {
             index = i
         }
