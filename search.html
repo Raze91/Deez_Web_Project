@@ -8,11 +8,12 @@
     <link rel="stylesheet" href="styles/style.css">
     <script defer src="https://unpkg.com/jquery@3.4.1/dist/jquery.js"></script>
     <script defer src="scripts/index.js"></script>
+    <script defer src="https://kit.fontawesome.com/316a4618a4.js" crossorigin="anonymous"></script>
 
 </head>
 
 <body>
-    <header>
+    <header id="up">
         <nav>
             <a href="accueil.html" class="active">DeezWeb</a>
             <div>
@@ -33,7 +34,7 @@
             <form action="">
                 <div>
                     <label for="">Titre: </label>
-                    <input type="text" id="title" placeholder="Eminem, Armin Van Buuren, Rihanna, ..."
+                    <input type="search" id="title" placeholder="Eminem, Armin Van Buuren, Rihanna, ..."
                         style="width: 250px;">
                 </div>
 
@@ -59,6 +60,7 @@
     </main>
     <footer id="next_ctnr">
         <button id="next">Musiques suivantes</button>
+        <a href="#up"><i class="fas fa-arrow-alt-circle-up fa-3x"></i></a>
     </footer>
 </body>
 

@@ -12,6 +12,8 @@ $('#submit').on('click', function (e) {
     onSubmit(url);
 });
 
+
+
 if (sessionStorage.getItem('page')) {
     finalUrl = sessionStorage.getItem('page');
     onSubmit(finalUrl);
@@ -32,11 +34,11 @@ if (favStorage.getItem('favoris')) {
             $('#favTracks').append(
                 `<div class='track'>
                             <div>
+                                <a id='test-${fav.id}' class='checked'><i class="fas fa-times fa-lg"></i></i></a>
                                 <img src='${fav.album.cover}' alt="">
                                 <div class='track-data'>
                                 <h3>${fav.title_short}</h3>
                                 <p>${fav.artist.name}</p>
-                                <button id='test-${fav.id}' class='checked'>Supprimer des favoris</button>
                                 </div>
                             </div>
                             <audio controls src="${fav.preview}"></audio>
@@ -74,11 +76,10 @@ if (favStorage.getItem('favoris')) {
                                     </div>
                                     </div>
                                     <audio controls src="${rdmTrack.preview}"></audio>
-                                </div>
-                                <button id='${rdmTrack.id}' class='unchecked'>Changer aléatoirement de musique</button>`
+                                </div>`
         )
 
-        $(`#${rdmTrack.id}`).on('click', function (e) {
+        $(`#rdmTrack`).on('click', function (e) {
             reload();
         })
     } else {
@@ -121,16 +122,18 @@ function onSubmit(url) {
             $('#tracks').append(
                 `<div class='track'>
                     <div>
+                    <a id='${result.id}' class='unchecked'><i class="fas fa-plus fa-lg"></i></a>
                     <img src='${result.album.cover}' alt="">
                     <div class='track-data'>
                     <h3>${result.title}</h3>
                     <p>${result.artist.name} / ${result.album.title}</p>
-                    <button id='${result.id}' class='unchecked'>Ajouter aux favoris</button>
+
                     </div>
                     </div>
                     <audio controls src="${result.preview}"></audio>
-                </div>`
-            );
+                    </div>`
+                    );
+                    // <button id='${result.id}' class='unchecked'>Ajouter aux favoris</button>
 
             finalUrl = url;
             sessionStorage.setItem('page', finalUrl);
@@ -143,7 +146,7 @@ function onSubmit(url) {
 
             $(`#${result.id}`).on('click', function (e) {
                 e.preventDefault();
-
+                console.log('click')
                 if ($(`#${result.id}`).attr('class') === 'unchecked') {
                     addFav(result);
                     setChecked(result);
@@ -189,11 +192,11 @@ function onNext(nextUrl) {
             $('#tracks').append(
                 `<div class='track'>
                     <div>
+                    <a id='${nextResult.id}' class='unchecked'><i class="fas fa-plus fa-lg"></i></a>
                     <img src='${nextResult.album.cover}' alt="">
                     <div class='track-data'>
                     <h3>${nextResult.title}</h3>
                     <p>${nextResult.artist.name} / ${nextResult.album.title}</p>
-                    <button id='${nextResult.id}' class='unchecked'>Ajouter aux favoris</button>
                     </div>
                     </div>
                     <audio controls src="${nextResult.preview}"></audio>
@@ -234,6 +237,7 @@ function addFav(result) {
     if ($(`#${result.id}`).attr('class') === 'unchecked') {
         favTracks.push(result);
         favStorage.setItem('favoris', JSON.stringify(favTracks));
+        console.log('add')
     }
 }
 
@@ -256,12 +260,12 @@ function reload() {
 
 function setChecked(result) {
     $(`#${result.id}`).empty();
-    $(`#${result.id}`).append('Supprimer des favoris');
+    $(`#${result.id}`).html('<i class="fas fa-times fa-lg"></i>');
     $(`#${result.id}`).removeClass('unchecked').addClass('checked');
 }
 
 function setUnchecked(result) {
     $(`#${result.id}`).empty();
-    $(`#${result.id}`).append('Ajouter aux favoris');
+    $(`#${result.id}`).html('<i class="fas fa-plus fa-lg">');
     $(`#${result.id}`).removeClass('checked').addClass('unchecked');
 }
