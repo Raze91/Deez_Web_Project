@@ -15,7 +15,7 @@ $('#submit').on('click', function (e) {
 $('#scrollUp').on('click', function (e) {
     e.preventDefault();
     $("html, body").animate({scrollTop : 0}, 1500);
-})
+});
 
 if (sessionStorage.getItem('page')) {
     finalUrl = sessionStorage.getItem('page');
@@ -59,7 +59,7 @@ if (favStorage.getItem('favoris')) {
         })
     } else {
         $('#favTracks').append(
-            `<h3>Vous n'avez pas encore de favoris ... Trouvez en <a href="search.html" class='goFind'>ici</a> !</h3>`
+            `<h3>Vous n'avez pas encore de favoris ... Trouvez-en <a href="search.html" class='goFind'>ici</a> !</h3>`
         )
     }
 
@@ -87,12 +87,12 @@ if (favStorage.getItem('favoris')) {
         })
     } else {
         $('#randomFav').append(
-            `<h3>Vous n'avez pas encore de favoris ... Trouvez en <a href="search.html" class='goFind'>ici</a> !</h3>`
+            `<h3>Vous n'avez pas encore de favoris ... Trouvez-en <a href="search.html" class='goFind'>ici</a> !</h3>`
         )
     }
 
 } else {
-    $('#favTracks').html(`<h3>Vous n'avez pas encore de favoris ... Trouvez en <a href="search.html" class='goFind'>ici</a> !</h3>`)
+    $('#favTracks').html(`<h3>Vous n'avez pas encore de favoris ... Trouvez-en <a href="search.html" class='goFind'>ici</a> !</h3>`)
 }
 
 function getRandomNum(max) {
