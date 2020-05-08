@@ -136,7 +136,6 @@ function onSubmit(url) {
                     <audio controls src="${result.preview}"></audio>
                     </div>`
             );
-            // <button id='${result.id}' class='unchecked'>Ajouter aux favoris</button>
 
             finalUrl = url;
             sessionStorage.setItem('page', finalUrl);
@@ -149,7 +148,6 @@ function onSubmit(url) {
 
             $(`#${result.id}`).on('click', function (e) {
                 e.preventDefault();
-                console.log('click')
                 if ($(`#${result.id}`).attr('class') === 'unchecked') {
                     addFav(result);
                     setChecked(result);
@@ -168,25 +166,18 @@ function onSubmit(url) {
 }
 
 function onNext(nextUrl) {
-    // $('#tracks').empty();
 
     $.ajax({
         url: nextUrl,
         dataType: 'jsonp',
     }).then((nextResult) => {
 
-
-
         const nextResults = nextResult.data;
         const nextUrl = nextResult.next;
-
-        // console.log(nextResults)
 
         $('#next').on('click', function (e) {
             e.preventDefault();
 
-            console.log(nextUrl)
-            console.log(nextResult.data);
             onNext(nextUrl);
         });
 
@@ -205,9 +196,6 @@ function onNext(nextUrl) {
                     <audio controls src="${nextResult.preview}"></audio>
                 </div>`
             );
-
-            // finalUrl = url;
-            // sessionStorage.setItem('page', finalUrl);
 
             for (let i = 0; i < favTracks.length; i++) {
                 if (nextResult.id === favTracks[i].id) {
@@ -240,7 +228,6 @@ function addFav(result) {
     if ($(`#${result.id}`).attr('class') === 'unchecked') {
         favTracks.push(result);
         favStorage.setItem('favoris', JSON.stringify(favTracks));
-        console.log('add')
     }
 }
 
