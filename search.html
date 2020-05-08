@@ -6,6 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Page de recherche</title>
     <link rel="stylesheet" href="styles/style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro&display=swap" rel="stylesheet">
     <script defer src="https://unpkg.com/jquery@3.4.1/dist/jquery.js"></script>
     <script defer src="scripts/index.js"></script>
     <script defer src="https://kit.fontawesome.com/316a4618a4.js" crossorigin="anonymous"></script>
@@ -13,13 +14,13 @@
 </head>
 
 <body>
-    <header id="up">
+    <header>
         <nav>
-            <a href="accueil.html" class="active">DeezWeb</a>
+            <p>DeezWeb</p>
             <div>
                 <a href="accueil.html">Accueil</a>
                 <a href="search.html" class="active">Rechercher un titre</a>
-                <a href="favoris.html">Mes favoris</a>
+                <a href="favoris.html">Favoris</a>
             </div>
         </nav>
     </header>
@@ -60,7 +61,7 @@
     </main>
     <footer id="next_ctnr">
         <button id="next">Musiques suivantes</button>
-        <a href="#up"><i class="fas fa-arrow-alt-circle-up fa-3x"></i></a>
+        <a id='scrollUp'><i class="fas fa-arrow-alt-circle-up fa-3x"></i></a>
     </footer>
 </body>
 

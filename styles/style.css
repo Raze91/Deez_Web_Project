@@ -1,12 +1,16 @@
 body {
     margin: 0;
     padding: 0;
+    font-family: 'Source Sans Pro', sans-serif;
 }
 
+button , input {
+    font-size: 18px !important;
+    font-family: 'Source Sans Pro', sans-serif;
+}
 header {
     background-color: steelblue;
 }
-
 /*** NAVBAR ***/
 nav {
     display: flex;
@@ -71,6 +75,7 @@ nav a:hover {
 
 .searchForm  form {
     display: flex;
+    align-items: center;
 }
 
 .searchForm div {
@@ -86,6 +91,9 @@ nav a:hover {
     border: none;
     border-radius: 50px;
     color: white;
+    width: 50px;
+    height: 30px;
+    font-size: 15px;
 }
 
 #submit:hover {
@@ -113,18 +121,16 @@ nav a:hover {
     margin-top: 20px;
 }
 
-#randomFav audio {
-    width: inherit;
-}
-
-.randomTrack {
-    width: 300px;
-    margin-top: 30px;
-}
-.track{
-    width: 380px;
+.track, .randomTrack{
+    width: 350px;
     margin-bottom: 30px;
     text-align: center;
+    border: solid 1px #E8ECEF;
+    box-shadow: 0 3px 4px 0 rgba(0, 0, 0, 0.2), 0 3px 5px 0 rgba(0, 0, 0, 0.19);
+}
+
+.track div , .randomTrack div{
+    margin-top: 10px;
 }
 
 .track div a {
@@ -132,6 +138,7 @@ nav a:hover {
     top: 0;
     right: 60px;
 }
+
 
 .track h1 , .randomTrack h1{
     margin: 0;
@@ -160,25 +167,9 @@ nav a:hover {
     margin-top: 5px;
 }
 
-/* .unchecked {
-    background-color: steelblue;
-    border: none;
-    border-radius: 40px;
-    color: white;
-    height: 25px;
-} */
-
 .unchecked:hover {
     cursor: pointer;
 }
-
-/* .checked {
-    background-color: crimson;
-    border: none;
-    border-radius: 40px;
-    color: white;
-    height: 25px;
-} */
 
 .checked:hover {
     cursor: pointer;
@@ -198,8 +189,27 @@ nav a:hover {
     border: none;
     border-radius: 40px;
     color: white;
-    height: 25px;
+    height: 30px;
     align-self: center;
+    font-size: 15px;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+#next:hover, #rdmTrack:hover {
+    background-color: cornflowerblue;
+    border: none;
+    border-radius: 40px;
+    color: white;
+    height: 30px;
+    align-self: center;
+    font-size: 15px;
+    padding-right: 10px;
+    padding-left: 10px;
+}
+
+#rdmTrack i {
+    margin-right: 10px;
 }
 
 #next:hover, #rdmTrack:hover {
@@ -217,5 +227,15 @@ nav a:hover {
 }
 
 #next_ctnr i:hover {
+    color: cornflowerblue;
+    cursor: pointer;
+}
+
+.goFind {
+    text-decoration: none;
+    color: steelblue;
+}
+
+.goFind:hover {
     color: cornflowerblue;
 }

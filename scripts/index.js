@@ -12,7 +12,10 @@ $('#submit').on('click', function (e) {
     onSubmit(url);
 });
 
-
+$('#scrollUp').on('click', function (e) {
+    e.preventDefault();
+    $("html, body").animate({scrollTop : 0}, 1500);
+})
 
 if (sessionStorage.getItem('page')) {
     finalUrl = sessionStorage.getItem('page');
@@ -56,7 +59,7 @@ if (favStorage.getItem('favoris')) {
         })
     } else {
         $('#favTracks').append(
-            `<h3>Vous n'avez pas encore de favoris ... Trouvez en <a href="search.html">ici</a> !</h3>`
+            `<h3>Vous n'avez pas encore de favoris ... Trouvez en <a href="search.html" class='goFind'>ici</a> !</h3>`
         )
     }
 
@@ -84,12 +87,12 @@ if (favStorage.getItem('favoris')) {
         })
     } else {
         $('#randomFav').append(
-            `<h3>Vous n'avez pas encore de favoris ... Trouvez en <a href="search.html">ici</a> !</h3>`
+            `<h3>Vous n'avez pas encore de favoris ... Trouvez en <a href="search.html" class='goFind'>ici</a> !</h3>`
         )
     }
 
 } else {
-    $('#favTracks').html(`<h3>Vous n'avez pas encore de favoris ... Trouvez en <a href="search.html">ici</a> !</h3>`)
+    $('#favTracks').html(`<h3>Vous n'avez pas encore de favoris ... Trouvez en <a href="search.html" class='goFind'>ici</a> !</h3>`)
 }
 
 function getRandomNum(max) {
@@ -132,8 +135,8 @@ function onSubmit(url) {
                     </div>
                     <audio controls src="${result.preview}"></audio>
                     </div>`
-                    );
-                    // <button id='${result.id}' class='unchecked'>Ajouter aux favoris</button>
+            );
+            // <button id='${result.id}' class='unchecked'>Ajouter aux favoris</button>
 
             finalUrl = url;
             sessionStorage.setItem('page', finalUrl);
@@ -166,22 +169,22 @@ function onSubmit(url) {
 
 function onNext(nextUrl) {
     // $('#tracks').empty();
-    
+
     $.ajax({
         url: nextUrl,
         dataType: 'jsonp',
     }).then((nextResult) => {
-        
-        
-        
+
+
+
         const nextResults = nextResult.data;
         const nextUrl = nextResult.next;
-        
+
         // console.log(nextResults)
-        
+
         $('#next').on('click', function (e) {
             e.preventDefault();
-            
+
             console.log(nextUrl)
             console.log(nextResult.data);
             onNext(nextUrl);
@@ -233,7 +236,7 @@ function onNext(nextUrl) {
 }
 
 function addFav(result) {
-    
+
     if ($(`#${result.id}`).attr('class') === 'unchecked') {
         favTracks.push(result);
         favStorage.setItem('favoris', JSON.stringify(favTracks));
