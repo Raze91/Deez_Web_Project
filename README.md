@@ -22,6 +22,6 @@ Petit site qui utilise l'api Deezer avec Jquery.
 
 - `Téléchargez` le projet.
 
-- `npm install` dans votre terminal pour installer les dépendances dont vous aure besoin pour lancer le projet.
+- `npm install` dans votre terminal pour installer les dépendances dont vous aurez besoin pour lancer le projet.
 
 - `npm run start` pour lancer le projet.
